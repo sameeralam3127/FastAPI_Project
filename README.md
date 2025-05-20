@@ -113,5 +113,4 @@ fastapi-learning-project/
 ## License
 
 MIT
-```
 
