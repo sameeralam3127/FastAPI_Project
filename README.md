@@ -1,116 +1,65 @@
-# FastAPI Learning Project
+# FastAPI Web Application
 
-A comprehensive FastAPI project designed for testing and learning API development with Swagger documentation.
+This is a simple **FastAPI** web application. Follow the instructions below to set up and run the project locally.
 
-## Features
+---
 
-- JWT Authentication (OAuth2 with password flow)
-- CRUD operations with items
-- User management
-- File upload/download
-- Form data handling
-- Comprehensive Swagger UI documentation
-- Example endpoints demonstrating various FastAPI features
+### 1. Create a virtual environment
 
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/sameeralam3127/FastAPI_Project.git
-   cd FastAPI_Project
-   ```
-
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## Running the Application
-
-Start the development server:
 ```bash
-uvicorn main:app --reload
+python3 -m venv venv
 ```
 
-The application will be available at:
-- http://127.0.0.1:8000
+### 2. Activate the virtual environment
 
-## API Documentation
+- On **Linux / macOS**:
 
-Interactive documentation is available at:
-- Swagger UI: http://127.0.0.1:8000/docs
-- ReDoc: http://127.0.0.1:8000/redoc
+  ```bash
+  source venv/bin/activate
+  ```
 
-## Test Users
+- On **Windows (PowerShell)**:
 
-The database comes with these test users:
+  ```powershell
+  .\venv\Scripts\activate
+  ```
 
-| Username | Password | Status  |
-|----------|----------|---------|
-| johndoe  | secret   | Active  |
-| alice    | secret   | Disabled|
+### 3. Run the application
 
-## API Endpoints
-
-### Authentication
-- `POST /token` - Get JWT access token
-- `GET /users/me` - Get current user info
-
-### Users
-- `POST /users/` - Create new user
-
-### Items
-- `GET /items/` - List all items (with pagination)
-- `GET /items/{item_id}` - Get specific item
-- `POST /items/` - Create new item
-- `PUT /items/{item_id}` - Update item
-- `DELETE /items/{item_id}` - Delete item
-
-### Files
-- `POST /uploadfile/` - Upload a file
-- `GET /download/{filename}` - Download a file
-
-### Advanced
-- `GET /advanced-query/` - Example of complex query parameters
-- `GET /custom-response/` - Example of custom response
-
-## Project Structure
-
-```
-fastapi-learning-project/
-├── main.py                # Main FastAPI application
-├── models.py              # Pydantic models/schemas
-├── database.py            # Simulated database
-├── requirements.txt       # Dependencies
-└── README.md              # This documentation
+```bash
+fastapi dev main.py
 ```
 
-## Testing with Swagger UI
+---
 
-1. Start by getting an access token at `/token` endpoint using:
-   - username: `johndoe`
-   - password: `secret`
+## Accessing the App
 
-2. Click "Authorize" button and paste the token
+Once running, open your browser at:
 
-3. Test protected endpoints like `/users/me` and `/items/`
+- API Root: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+- Interactive API docs (Swagger UI): [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- Alternative API docs (ReDoc): [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
-## Dependencies
+---
 
-- Python 3.7+
-- FastAPI
-- Uvicorn (ASGI server)
-- python-jose (JWT tokens)
-- passlib (password hashing)
-- python-multipart (form parsing)
+## Example `main.py`
 
-## License
+```python
+from typing import Union
 
-MIT
+from fastapi import FastAPI
 
+app = FastAPI()
+
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
+```
+
+---
